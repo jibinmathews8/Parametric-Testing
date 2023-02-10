@@ -16,6 +16,31 @@ Description:
 
 %}
 
+%% Import and Read Data
+filename = 'Vthdata.csv';
+data = csvread(filename);
 
+%% Calculate Bins: sqrt(# of measurements)
+num_bins = round(sqrt(length(data)));
 
+%% Create Histogram
+histogram(data, num_bins);
+xlabel('Data');
+ylabel('Frequency');
+title('Histogram of Data');
 
+%% Mean and Standard Deviation
+mean_data = mean(data);
+std_data = std(data);
+disp(" Mean of data is: ");
+disp(mean_data);
+disp(" Standard Deviation of data is: ");
+disp(std_data);
+
+%% Gaussian Distribution (Use Min and Max)
+
+x = linspace(min(data), max(data), 100);
+y = normpdf(x, mean_data, std_data);
+hold on;
+plot(x, y,'red');
+legend('Histogram', 'Gaussian Distribution');
