@@ -19,7 +19,8 @@ Description:
 %% Import and Read Data
 filename = 'Vthdata (1).csv';
 data_file = csvread(filename);
-data = data_file(1,:);
+data = data_file(1,1:300);
+
 
 %% Calculate Bins: sqrt(# of measurements)
 num_bins = round(sqrt(length(data)));
@@ -32,26 +33,25 @@ disp(mean_data);
 disp(" Standard Deviation of data is: ");
 disp(std_data);
 
-%% Function to fit probability distribution object to data
-prob_dist = fitdist(data', 'Normal'); % Only for column vector so find transpose of data: data'
-mean_fit = prob_dist.mu;
-std_fit = prob_dist.sigma;
+ x_values = linspace(min(data), max(data), 300);
+ y_fit = normpdf(x_values,mean_data,std_data);
 
-x_values = linspace(min(data), max(data), 1000);
-y_fit = pdf(prob_dist, x_values);
 
 %% Gaussian Distribution (Use Min and Max)
 figure(1)
-histogram(data,num_bins, 'Normalization', 'pdf',FaceColor='cyan'); 
+%h = histogram(data,num_bins, 'Normalization','pdf',FaceColor='cyan');
+h = histogram(data', "BinWidth",.1,"NumBins",num_bins, "Normalization","pdf",FaceColor='cyan');
 % Probability Density Function
 % Bin_value = (# elements in bin) / ( #elements in input data * width
 % of bin)
 hold on;
+% cumulative_sum = cumsum(h.Values); % Cumalitive Sum
+% plot(h.BinEdges(2:end), cumulative_sum,'magenta');
 plot(x_values, y_fit,'red');
 xlabel('x');
 ylabel('y');
 title('Histogram with Gaussian Distribution');
-legend('Data', 'Gaussian Distribution');
+legend('Data','Gaussian Distribution');
 
 %% Check for Normal Distribution
 % figure(2)
