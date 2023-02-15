@@ -37,7 +37,6 @@ prob_dist = fitdist(data', 'Normal'); % Only for column vector so find transpose
 mean_fit = prob_dist.mu;
 std_fit = prob_dist.sigma;
 
-
 x_values = linspace(min(data), max(data), 1000);
 y_fit = pdf(prob_dist, x_values);
 
