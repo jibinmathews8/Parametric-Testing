@@ -40,18 +40,23 @@ disp(std_data);
 %% Gaussian Distribution (Use Min and Max)
 figure(1)
 %h = histogram(data,num_bins, 'Normalization','pdf',FaceColor='cyan');
-h = histogram(data', "BinWidth",.1,"NumBins",num_bins, "Normalization","pdf",FaceColor='cyan');
+h = histogram(data', "BinWidth",.1,"NumBins",num_bins, "Normalization","pdf",FaceColor='blue');
 % Probability Density Function
 % Bin_value = (# elements in bin) / ( #elements in input data * width
 % of bin)
 hold on;
-% cumulative_sum = cumsum(h.Values); % Cumalitive Sum
-% plot(h.BinEdges(2:end), cumulative_sum,'magenta');
+[counts, edges] = histcounts(data, num_bins, 'Normalization', 'pdf');
+cdf = cumsum(counts) / sum(counts); % Cumulative Sum
+plot(edges(2:end), cdf, 'green');
+
+hold on;
 plot(x_values, y_fit,'red');
-xlabel('x');
-ylabel('y');
+xlabel('Data');
+ylabel('Frequency');
 title('Histogram with Gaussian Distribution');
-legend('Data','Gaussian Distribution');
+legend('Data','Cumulative Probability','Gaussian Distribution');
+
+
 
 %% Check for Normal Distribution
 % figure(2)
