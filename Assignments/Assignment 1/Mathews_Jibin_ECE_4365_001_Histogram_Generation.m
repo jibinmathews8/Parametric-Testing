@@ -56,8 +56,6 @@ ylabel('Frequency');
 title('Histogram with Gaussian Distribution');
 legend('Data','Cumulative Probability','Gaussian Distribution');
 
-
-
 %% Check for Normal Distribution
 % figure(2)
 % qqplot(data,prob_dist)
