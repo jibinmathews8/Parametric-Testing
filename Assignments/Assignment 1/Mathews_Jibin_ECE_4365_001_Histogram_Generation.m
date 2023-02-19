@@ -21,7 +21,6 @@ filename = 'Vthdata (1).csv';
 data_file = csvread(filename);
 data = data_file(1,1:300);
 
-
 %% Calculate Bins: sqrt(# of measurements)
 num_bins = round(sqrt(length(data)));
 
